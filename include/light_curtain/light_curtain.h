@@ -28,7 +28,7 @@ class LightCurtain {
   bool isDanger() const;
   void init();
   void getLaserCallback(const sensor_msgs::LaserScan::ConstPtr& scan_msg);
-
+  void setDanger(bool is_danger);
  private:
   ros::NodeHandle node_;
   std::string base_frame_id_;

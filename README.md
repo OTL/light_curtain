@@ -4,7 +4,7 @@ light_curtain
 
 velocity_filter
 -------------
-This node filters input velocity by laser scan. If the laser is inside of robot body, the output is not published.
+This node filters input velocity by laser scan. If the laser is inside of robot body and the velocity is forward, then the output is not published.
 
 Subscribed Topics
 ----------------
@@ -24,5 +24,5 @@ Parameters
 
 * ~robot_width (double, default: 0.5)
 * ~robot_depth (double, default: 0.5)
-* ~robot_height (double, default: 1.0)
+* ~robot_height (double, default: 1.5)
 * ~base_frame (string, default: base_link) tf frame name of robot base (must be on floor)
