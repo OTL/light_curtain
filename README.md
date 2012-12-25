@@ -2,21 +2,23 @@ light_curtain
 =================
 
 
-velocity_filter
--------------
-This node filters input velocity by laser scan. If the laser is inside of robot body and the velocity is forward, then the output is not published.
+velocity_curtain
+-----------------
+This node filters input velocity by laser scan/point cloud. If a laser scan data is detected inside robot body and the velocity is forward, then the output is not published.
+This is also a nodelet (light_curtain/VelocityCurtainNodelet).
 
 Subscribed Topics
 ----------------
 
 * /input_velocity (geometry_msgs/Twist) this topic is filtered by light curtain
-* /scan (sensor_msgs/LaserScan) data for light curtain
-* /tf (tf/TfMessage) please publish laser's tf
+* /curtain/scan (sensor_msgs/LaserScan) scan data for light curtain
+* /curtain/points (sensor_msgs/PointCloud2) point data for light curtain
+* /tf (tf/TfMessage) please publish the tf between sensor frame and robot base
 
 Published Topics
 --------------------
 
-* /cmd_vel (geometry_msgs/Twist) output
+* /output_velocity (geometry_msgs/Twist) output velocity filtered by light curtain
 
 
 Parameters
@@ -25,4 +27,6 @@ Parameters
 * ~robot_width (double, default: 0.5)
 * ~robot_depth (double, default: 0.5)
 * ~robot_height (double, default: 1.5)
-* ~base_frame (string, default: base_link) tf frame name of robot base (must be on floor)
+* ~keep_duration (double, default: 1.0) keep danger state for this seconds
+* ~base_frame_id (string, default: base_link) tf frame name of robot base (must be on floor)
+

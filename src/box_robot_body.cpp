@@ -6,7 +6,6 @@
 
 #include <light_curtain/box_robot_body.h>
 #include <pcl/common/common.h>
-#include <pcl/ros/conversions.h>
 
 namespace light_curtain {
 
@@ -17,12 +16,10 @@ BoxRobotBody::BoxRobotBody (const Eigen::Vector4f& min_point,
 {
 }
 
-bool BoxRobotBody::isNearBody(const sensor_msgs::PointCloud2& cloud_msg)
+bool BoxRobotBody::isNearBody(const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud)
 {
-  pcl::PointCloud<pcl::PointXYZ> cloud;
-  pcl::fromROSMsg(cloud_msg, cloud);
   std::vector<int> indices;
-  pcl::getPointsInBox(cloud, min_point_, max_point_, indices);
+  pcl::getPointsInBox(*cloud, min_point_, max_point_, indices);
   return indices.size() > 0;
 }
 

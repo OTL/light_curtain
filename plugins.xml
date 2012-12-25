@@ -1,0 +1,8 @@
+<library path="lib/liblight_curtain_nodelet">
+  <class name="light_curtain/VelocityCurtainNodelet" type="light_curtain::VelocityCurtainNodelet"
+         base_class_type="nodelet::Nodelet">
+    <description>
+      filter velocity by light curtain
+    </description>
+  </class>
+</library>
