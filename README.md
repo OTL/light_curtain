@@ -1,5 +1,7 @@
 light_curtain
 =================
+This is Light Curtain function for ROS.
+If you want to know about ROS, please read http://ros.org.
 
 
 velocity_curtain
