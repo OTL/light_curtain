@@ -8,7 +8,8 @@
 #define LIGHT_CURTAIN_BOX_ROBOT_BODY_H
 
 #include <Eigen/Core>
-#include <sensor_msgs/PointCloud2.h>
+#include <pcl/point_cloud.h>
+#include <pcl/point_types.h>
 
 namespace light_curtain {
 
@@ -20,7 +21,7 @@ class BoxRobotBody {
   BoxRobotBody (const Eigen::Vector4f& min_point,
                 const Eigen::Vector4f& max_point);
 
-  bool isNearBody(const sensor_msgs::PointCloud2& cloud_msg);
+  bool isNearBody(const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud);
 
   const Eigen::Vector4f& getMinPoint() const {
     return min_point_;
