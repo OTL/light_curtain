@@ -9,7 +9,7 @@ bool g_informed_value = false;
 int32_t g_called_count = 0;
 }
 
-bool isDanger(const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud) {
+bool getDangerState(const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud) {
   return cloud->size() > 0;
 }
 
@@ -19,22 +19,30 @@ void inform(bool val) {
 }
 
 
-TEST(LightCurtain, setDanger) {
-  LightCurtain curtain(isDanger,
+TEST(LightCurtain, setKeepDuration) {
+  LightCurtain curtain(getDangerState,
                        inform,
-                       ros::Duration(1.0));
+                       1.0);
+  curtain.setKeepDuration(2.0);
+  EXPECT_NEAR(2.0, curtain.getKeepDuration(), 0.00001);
+}
+
+TEST(LightCurtain, setDangerState) {
+  LightCurtain curtain(getDangerState,
+                       inform,
+                       1.0);
   // default safe
-  EXPECT_FALSE(curtain.isDanger());
-  curtain.setDanger(true);
-  EXPECT_TRUE(curtain.isDanger());
-  curtain.setDanger(false);
-  EXPECT_FALSE(curtain.isDanger());
+  EXPECT_FALSE(curtain.getDangerState());
+  curtain.setDangerState(true);
+  EXPECT_TRUE(curtain.getDangerState());
+  curtain.setDangerState(false);
+  EXPECT_FALSE(curtain.getDangerState());
 }
 
 TEST(LightCurtain, updatePointCloud) {
-  LightCurtain curtain(isDanger,
+  LightCurtain curtain(getDangerState,
                        inform,
-                       ros::Duration(1.0));
+                       1.0);
   curtain.init();
   pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
   // default false -> false

@@ -21,7 +21,7 @@ class BoxRobotBody {
   BoxRobotBody (const Eigen::Vector4f& min_point,
                 const Eigen::Vector4f& max_point);
 
-  bool isNearBody(const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud);
+  bool isCollided(const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud);
 
   const Eigen::Vector4f& getMinPoint() const {
     return min_point_;
@@ -29,6 +29,13 @@ class BoxRobotBody {
 
   const Eigen::Vector4f& getMaxPoint() const {
     return max_point_;
+  }
+
+  void setMinPoint(const Eigen::Vector4f& min_point) {
+    min_point_ = min_point;
+  }
+  void setMaxPoint(const Eigen::Vector4f& max_point) {
+    max_point_ = max_point;
   }
 
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW

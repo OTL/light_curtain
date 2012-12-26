@@ -18,6 +18,23 @@ namespace light_curtain {
 VelocityCurtainNodelet::VelocityCurtainNodelet() {
 }
 
+void VelocityCurtainNodelet::reconfigureCallback(
+    VelocityCurtainConfig& config, uint32_t level)
+{
+  robot_->setMinPoint(Eigen::Vector4f(-config.robot_depth/2,
+                                      -config.robot_width/2,
+                                      0.0,
+                                      0.0));
+  robot_->setMaxPoint(Eigen::Vector4f(config.robot_depth/2,
+                                     config.robot_width/2,
+                                     config.robot_height,
+                                     0.0));
+
+  curtain_->setKeepDuration(config.keep_duration);
+  pointcloud_updater_->setBaseFrameId(config.base_frame_id);
+  laser_updater_->setBaseFrameId(config.base_frame_id);
+}
+
 void VelocityCurtainNodelet::onInit() {
   ros::NodeHandle node(getNodeHandle());
   ros::NodeHandle private_node(getPrivateNodeHandle());
@@ -34,6 +51,7 @@ void VelocityCurtainNodelet::onInit() {
   std::string base_frame("base_link");
   private_node.param<std::string>("base_frame_id", base_frame, "base_link");
 
+
   using Eigen::Vector4f;
 
   robot_ = boost::shared_ptr<BoxRobotBody>(
@@ -47,9 +65,9 @@ void VelocityCurtainNodelet::onInit() {
                                 10));
   curtain_ = boost::shared_ptr<LightCurtain>(
       new LightCurtain(
-          boost::bind(&BoxRobotBody::isNearBody, robot_, _1),
+          boost::bind(&BoxRobotBody::isCollided, robot_, _1),
           boost::bind(&ForwardVelocityFilter::set_danger, filter_, _1),
-          ros::Duration(keep_duration)));
+          keep_duration));
 
   pointcloud_updater_ = boost::shared_ptr<PointCloudROS>(
       new PointCloudROS(
@@ -64,6 +82,10 @@ void VelocityCurtainNodelet::onInit() {
           "/curtain/scan",
           base_frame,
           boost::bind(&LightCurtain::updatePointCloud, curtain_, _1)));
+
+  config_server_ = boost::shared_ptr<ConfigServer>(new ConfigServer);
+  config_server_->setCallback(
+      boost::bind(&VelocityCurtainNodelet::reconfigureCallback, this, _1, _2));
 
   pointcloud_updater_->init();
   laser_updater_->init();

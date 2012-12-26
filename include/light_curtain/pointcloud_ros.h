@@ -19,6 +19,13 @@ class PointCloudROS {
   void init();
   void getPointCloudCallback(
       const sensor_msgs::PointCloud2::ConstPtr& cloud_msg);
+  void setBaseFrameId(const std::string& base_frame_id) {
+    base_frame_id_ = base_frame_id;
+  }
+  const std::string& getBaseFrameId() const {
+    return base_frame_id_;
+  }
+
  private:
   ros::NodeHandle node_;
   std::string topic_name_;

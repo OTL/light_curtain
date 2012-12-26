@@ -20,6 +20,12 @@ class LaserROS {
   void init();
   void getLaserCallback(
       const sensor_msgs::LaserScan::ConstPtr& scan_msg);
+  void setBaseFrameId(const std::string& base_frame_id) {
+    base_frame_id_ = base_frame_id;
+  }
+  const std::string& getBaseFrameId() const {
+    return base_frame_id_;
+  }
 
  private:
   ros::NodeHandle node_;

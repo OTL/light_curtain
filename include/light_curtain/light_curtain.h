@@ -22,15 +22,22 @@ class LightCurtain {
  public:
   LightCurtain(const JudgeDanger& judge_callback,
                const InformFunction& inform_callback,
-               const ros::Duration& keep_duration);
-  bool isDanger() const;
+               double keep_duration);
   void init();
   void updatePointCloud(const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud);
-  void setDanger(bool is_danger);
+  bool getDangerState() const;
+  void setDangerState(bool is_danger);
+  void setKeepDuration(double duration) {
+    keep_duration_ = duration;
+  };
+  double getKeepDuration() {
+    return keep_duration_;
+  };
+
  private:
   JudgeDanger judge_callback_;
   InformFunction inform_callback_;
-  ros::Duration keep_duration_;
+  double keep_duration_;
   bool is_danger_;
   ros::Time last_danger_stamp_;
 };

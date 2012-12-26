@@ -16,7 +16,7 @@ BoxRobotBody::BoxRobotBody (const Eigen::Vector4f& min_point,
 {
 }
 
-bool BoxRobotBody::isNearBody(const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud)
+bool BoxRobotBody::isCollided(const pcl::PointCloud<pcl::PointXYZ>::Ptr& cloud)
 {
   std::vector<int> indices;
   pcl::getPointsInBox(*cloud, min_point_, max_point_, indices);

@@ -10,7 +10,7 @@ namespace light_curtain {
 
 LightCurtain::LightCurtain(const JudgeDanger& judge_callback,
                            const InformFunction& inform_callback,
-                           const ros::Duration& keep_duration)
+                           double keep_duration)
     : judge_callback_(judge_callback)
     , inform_callback_(inform_callback)
     , keep_duration_(keep_duration)
@@ -19,7 +19,7 @@ LightCurtain::LightCurtain(const JudgeDanger& judge_callback,
 
 }
 
-bool LightCurtain::isDanger() const {
+bool LightCurtain::getDangerState() const {
   return is_danger_;
 }
 
@@ -28,7 +28,7 @@ void LightCurtain::init()
   last_danger_stamp_ = ros::Time::now();
 }
 
-void LightCurtain::setDanger(bool is_danger) {
+void LightCurtain::setDangerState(bool is_danger) {
   if (is_danger_ != is_danger) {
     inform_callback_(is_danger);
   }
@@ -42,9 +42,9 @@ void LightCurtain::updatePointCloud(
   if (judge_callback_(cloud)) {
     // danger
     last_danger_stamp_ = current_stamp;
-    setDanger(true);
-  } else if (current_stamp - last_danger_stamp_ > keep_duration_) {
-    setDanger(false);
+    setDangerState(true);
+  } else if (current_stamp - last_danger_stamp_ > ros::Duration(keep_duration_)) {
+    setDangerState(false);
   }
 }
 

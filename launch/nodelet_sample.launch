@@ -1,0 +1,8 @@
+<launch>
+  <node pkg="nodelet" type="nodelet" name="velocity_curtain"
+		args="load light_curtain/VelocityCurtainNodelet camera_nodelet_manager">
+	<remap from="/input_velocity" to="/cmd_vel"/>
+	<remap from="/curtain/points" to="/camera/depth/points"/>
+        <param name="/base_frame_id" value="/camera_rgb_frame"/>
+  </node>
+</launch>
