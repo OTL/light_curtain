@@ -4,8 +4,8 @@
 // new BSD license
 //
 
-#ifndef LIGHT_CURTAIN_VELOCITY_FILTER_H
-#define LIGHT_CURTAIN_VELOCITY_FILTER_H
+#ifndef LIGHT_CURTAIN_FORWARD_VELOCITY_FILTER_H
+#define LIGHT_CURTAIN_FORWARD_VELOCITY_FILTER_H
 
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
@@ -26,8 +26,9 @@ class ForwardVelocityFilter {
  private:
   bool is_danger_;  ///< if this is danger, do not publish
   ros::NodeHandle node_;  ///< ROS node handle
-  ros::Publisher publisher_;  ///< ros topic publisher
-  ros::Subscriber subscriber_;  ///< ros topic subscriber
+  ros::Publisher velocity_publisher_;  ///< ros velocity topic publisher
+  ros::Publisher state_publisher_;  ///< ros danger state publisher
+  ros::Subscriber velocity_subscriber_;  ///< ros velocity topic subscriber
 };
 
 }  // namespace light_curtain

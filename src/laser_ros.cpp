@@ -30,12 +30,12 @@ void LaserROS::getLaserCallback(
                                               *scan_msg,
                                               cloud_msg,
                                               *tf_listener_);
+    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
+    pcl::fromROSMsg(cloud_msg, *cloud);
+    callback_(cloud);
   } catch (tf::TransformException& e) {
     ROS_WARN_STREAM_ONCE("transform laser failed: " << e.what());
   }
-  pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-  pcl::fromROSMsg(cloud_msg, *cloud);
-  callback_(cloud);
 }
 
 

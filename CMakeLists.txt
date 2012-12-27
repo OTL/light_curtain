@@ -32,7 +32,7 @@ rosbuild_add_library(${PROJECT_NAME}
   src/laser_ros.cpp
   src/pointcloud_ros.cpp
   src/light_curtain.cpp
-  src/velocity_filter.cpp)
+  src/forward_velocity_filter.cpp)
 
 rosbuild_add_library(${PROJECT_NAME}_nodelet
   src/velocity_curtain_nodelet.cpp)

@@ -1,12 +1,14 @@
 light_curtain
 =================
 This is Light Curtain function for ROS.
-If you want to know about ROS, please read http://ros.org.
+This package contains general light_curtain library and ros velocity filtering nodelet and node.
+
+If you want to know about ROS, please see http://ros.org
 
 
 velocity_curtain
 -----------------
-This node filters input velocity by laser scan/point cloud. If a laser scan data is detected inside robot body and the velocity is forward, then the output is not published.
+This node filters input velocity by laser scan/point cloud. If a laser scan data is detected inside robot body and the velocity is forward, then the linear.x value of output will be zero.
 This is also a nodelet (light_curtain/VelocityCurtainNodelet).
 
 Subscribed Topics
@@ -21,7 +23,7 @@ Published Topics
 --------------------
 
 * /output_velocity (geometry_msgs/Twist) output velocity filtered by light curtain
-
+* /curtain/danger_state (std_msgs/Bool) is danger state
 
 Parameters
 ------------

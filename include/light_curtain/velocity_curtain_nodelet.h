@@ -9,7 +9,8 @@
 #include <light_curtain/light_curtain.h>
 #include <light_curtain/pointcloud_ros.h>
 #include <light_curtain/laser_ros.h>
-#include <light_curtain/velocity_filter.h>
+#include <light_curtain/forward_velocity_filter.h>
+
 
 
 

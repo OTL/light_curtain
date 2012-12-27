@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <ros/ros.h>
-#include <light_curtain/velocity_filter.h>
+#include <light_curtain/forward_velocity_filter.h>
 
 using light_curtain::ForwardVelocityFilter;
 
@@ -40,7 +40,7 @@ TEST(VelocityFilter, forward) {
   filter.callback(msg);
   ros::Duration(1.0).sleep();
   ros::spinOnce();
-  EXPECT_NEAR(2.0, sub.getData().linear.x, 0.000001);
+  EXPECT_NEAR(0.0, sub.getData().linear.x, 0.000001);
 
   // disable
   filter.set_danger(false);
