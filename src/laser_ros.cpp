@@ -25,16 +25,21 @@ void LaserROS::getLaserCallback(
     const sensor_msgs::LaserScan::ConstPtr& scan_msg) {
   laser_geometry::LaserProjection projector_;
   sensor_msgs::PointCloud2 cloud_msg;
-  try {
-    projector_.transformLaserScanToPointCloud(base_frame_id_,
-                                              *scan_msg,
-                                              cloud_msg,
-                                              *tf_listener_);
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-    pcl::fromROSMsg(cloud_msg, *cloud);
-    callback_(cloud);
-  } catch (tf::TransformException& e) {
-    ROS_WARN_STREAM_ONCE("transform laser failed: " << e.what());
+  if(tf_listener_->waitForTransform(base_frame_id_,
+				    scan_msg->header.frame_id,
+				    scan_msg->header.stamp,
+				    ros::Duration(0.1))) {
+    try {
+      projector_.transformLaserScanToPointCloud(base_frame_id_,
+						*scan_msg,
+						cloud_msg,
+						*tf_listener_);
+      pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
+      pcl::fromROSMsg(cloud_msg, *cloud);
+      callback_(cloud);
+    } catch (tf::TransformException& e) {
+      ROS_WARN_STREAM_ONCE("transform laser failed: " << e.what());
+    }
   }
 }
 

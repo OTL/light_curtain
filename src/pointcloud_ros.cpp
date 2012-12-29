@@ -26,13 +26,18 @@ void PointCloudROS::getPointCloudCallback(
     const sensor_msgs::PointCloud2::ConstPtr& cloud_msg) {
 
   sensor_msgs::PointCloud2 transformed_msg;
-  if (pcl_ros::transformPointCloud(base_frame_id_,
-                                   *cloud_msg,
-                                   transformed_msg,
-                                   *tf_listener_)) {
-    pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
-    pcl::fromROSMsg(transformed_msg, *cloud);
-    callback_(cloud);
+  if(tf_listener_->waitForTransform(base_frame_id_,
+				    cloud_msg->header.frame_id,
+				    cloud_msg->header.stamp,
+				    ros::Duration(0.1))) {
+    if (pcl_ros::transformPointCloud(base_frame_id_,
+				     *cloud_msg,
+				     transformed_msg,
+				     *tf_listener_)) {
+      pcl::PointCloud<pcl::PointXYZ>::Ptr cloud(new pcl::PointCloud<pcl::PointXYZ>);
+      pcl::fromROSMsg(transformed_msg, *cloud);
+      callback_(cloud);
+    }
   }
 }
 
