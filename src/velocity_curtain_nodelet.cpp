@@ -51,7 +51,6 @@ void VelocityCurtainNodelet::onInit() {
   std::string base_frame("base_link");
   private_node.param<std::string>("base_frame_id", base_frame, "base_link");
 
-
   using Eigen::Vector4f;
 
   robot_ = boost::shared_ptr<BoxRobotBody>(
@@ -83,10 +82,24 @@ void VelocityCurtainNodelet::onInit() {
           base_frame,
           boost::bind(&LightCurtain::updatePointCloud, curtain_, _1)));
 
+  // this calls callback now, is this bug?
   config_server_ = boost::shared_ptr<ConfigServer>(new ConfigServer);
-  config_server_->setCallback(
-      boost::bind(&VelocityCurtainNodelet::reconfigureCallback, this, _1, _2));
+  config_server_->setCallback(boost::bind(&VelocityCurtainNodelet::reconfigureCallback, this, _1, _2));
 
+  // set again because above bug reset the params
+  robot_->setMinPoint(Vector4f(-depth/2,
+			       -width/2,
+			       0.0,
+			       0.0));
+  robot_->setMaxPoint(Vector4f(depth/2,
+			       width/2,
+			       height,
+			       0.0));
+
+  curtain_->setKeepDuration(keep_duration);
+  pointcloud_updater_->setBaseFrameId(base_frame);
+  laser_updater_->setBaseFrameId(base_frame);
+  
   pointcloud_updater_->init();
   laser_updater_->init();
   curtain_->init();
