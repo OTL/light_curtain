@@ -2,7 +2,7 @@
   <name>light_curtain</name>
   <version>0.1.0</version>
   <description>light_curtain</description>
-  <!-- <maintainer>Takashi Ogura</maintainer> -->
+  <maintainer email="t.ogura@gmail.com">Takashi Ogura</maintainer>
 
   <license>BSD</license>
 
@@ -11,36 +11,29 @@
 
   <author>Takashi Ogura</author>
 
-  <!-- <build_depend>roscpp</build_depend> -->
-  <!-- <build_depend>tf</build_depend> -->
-  <!-- <build_depend>pcl</build_depend> -->
-  <!-- <build_depend>pcl_ros</build_depend> -->
-  <!-- <build_depend>nodelet</build_depend> -->
-  <!-- <build_depend>std_msgs</build_depend> -->
-  <!-- <build_depend>sensor_msgs</build_depend> -->
-  <!-- <build_depend>geometry_msgs</build_depend> -->
-  <!-- <build_depend>laser_geometry</build_depend> -->
-  <!-- <build_depend>dynamic_reconfigure</build_depend> -->
-  <!-- <run_depend>roscpp</run_depend> -->
-  <!-- <run_depend>tf</run_depend> -->
-  <!-- <run_depend>pcl</run_depend> -->
-  <!-- <run_depend>pcl_ros</run_depend> -->
-  <!-- <run_depend>nodelet</run_depend> -->
-  <!-- <run_depend>std_msgs</run_depend> -->
-  <!-- <run_depend>sensor_msgs</run_depend> -->
-  <!-- <run_depend>geometry_msgs</run_depend> -->
-  <!-- <run_depend>laser_geometry</run_depend> -->
-  <!-- <run_depend>dynamic_reconfigure</run_depend> -->
-  <!-- <test_depend>roscpp</test_depend> -->
-  <!-- <test_depend>tf</test_depend> -->
-  <!-- <test_depend>pcl</test_depend> -->
-  <!-- <test_depend>pcl_ros</test_depend> -->
-  <!-- <test_depend>nodelet</test_depend> -->
-  <!-- <test_depend>std_msgs</test_depend> -->
-  <!-- <test_depend>sensor_msgs</test_depend> -->
-  <!-- <test_depend>geometry_msgs</test_depend> -->
-  <!-- <test_depend>laser_geometry</test_depend> -->
-  <!-- <test_depend>dynamic_reconfigure</test_depend> -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>roscpp</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>pcl</build_depend>
+  <build_depend>pcl_ros</build_depend>
+  <build_depend>nodelet</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>laser_geometry</build_depend>
+  <build_depend>dynamic_reconfigure</build_depend>
+
+  <run_depend>roscpp</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>pcl</run_depend>
+  <run_depend>pcl_ros</run_depend>
+  <run_depend>nodelet</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>sensor_msgs</run_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>laser_geometry</run_depend>
+  <run_depend>dynamic_reconfigure</run_depend>
 
   <export>
     <cpp lflags="-Wl,-rpath,${prefix}/lib -L${prefix}/lib -llight_curtain" cflags="-I${prefix}/include/"/>
