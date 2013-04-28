@@ -36,7 +36,6 @@
   <run_depend>dynamic_reconfigure</run_depend>
 
   <export>
-    <cpp lflags="-Wl,-rpath,${prefix}/lib -L${prefix}/lib -llight_curtain" cflags="-I${prefix}/include/"/>
-    <nodelet plugin="${prefix}/plugins.xml"/>
+    <nodelet plugin="${prefix}/plugins/plugins.xml"/>
   </export>
 </package>
